@@ -5,7 +5,7 @@
 
 from uuid import uuid4
 from datetime import datetime
-
+from models.__init__ import storage
 
 class BaseModel:
     ''' BaseModel Class
@@ -27,6 +27,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.new(self, self.id)
 
     def __str__(self):
         ''' Prints a BaseModel instance
@@ -40,6 +41,7 @@ class BaseModel:
             the current datetime
         '''
         self.updated_at = datetime.now()
+        storage.save(self)
 
     def to_dict(self):
         ''' Method that returns a dictionary containing all key/value pairs of
