@@ -4,6 +4,7 @@
 
 import json
 
+
 class FileStorage:
     '''stores files
     '''
@@ -26,7 +27,6 @@ class FileStorage:
     def new(self, obj):
         '''setter for __objects
         '''
-        #from models.base_model import BaseModel
         key = obj.__class__.__name__ + "." + obj.id
         self.__objects[key] = obj
 
@@ -35,14 +35,16 @@ class FileStorage:
         dict_dict = {}
         for key, value in self.all().items():
             dict_dict[key] = value.to_dict()
-        with open (self.__file_path, mode='w', encoding='utf-8') as my_file: 
+        with open(self.__file_path, mode='w', encoding='utf-8') as my_file:
             json.dump(dict_dict, my_file)
 
     def reload(self):
         from models.base_model import BaseModel
         import os
         if os.path.exists(self.__file_path):
-            with open (self.__file_path, mode='r', encoding='utf-8') as my_file:
+            with open(
+                    self.__file_path, mode='r', encoding='utf-8'
+                    ) as my_file:
                 temp_dict = json.loads(my_file.read())
                 dict_obj = {}
                 for key, value in temp_dict.items():
