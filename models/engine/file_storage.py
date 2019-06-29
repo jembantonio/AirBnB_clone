@@ -44,13 +44,13 @@ class FileStorage:
         for key in self.all():
             turn_dict = self.all()
             dict_dict[self.new(turn_dict)] = key.to_dict()
-        with open (self.file_path, mode='w', encoding='utf-8') as my_file: 
+        with open (self.__file_path, mode='w', encoding='utf-8') as my_file: 
             json.dump(dict_dict, my_file)
 
     def reload(self):
         import os
-        if os.path.exists(self.file_path):
-            with open (self.file_path, mode='r', encoding='utf-8') as my_file:
+        if os.path.exists(self.__file_path):
+            with open (self.__file_path, mode='r', encoding='utf-8') as my_file:
                 temp_dict = json.loads(my_file.read())
                 from models.base_model import BaseModel
                 dict_obj = BaseModel.to_dict(**temp_dict)
