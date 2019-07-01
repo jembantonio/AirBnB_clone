@@ -21,7 +21,8 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) < 1:
             print ('** class name missing **')
 
-        elif arg is not "BaseModel":
+        # make more better
+        elif arg != "BaseModel":
             print ("** class doesn't exist **")
 
         else:
@@ -31,13 +32,20 @@ class HBNBCommand(cmd.Cmd):
             print(new_ins.id)
 
     def do_show(self, arg):
-        from models import storage
         ''' Prints the string representation of an instance based on the
             class name and id
         '''
+        from models import storage
+        from shlex import split
 
-        name_id = "{}{}".format(arg[0], arg[1])
-        print(storage.all()[name_id])
+        token = arg.split()
+
+        if len(arg) == 0:
+            print ("** class name missing **")
+
+        else:
+            name_id = "{}.{}".format(token[0], token[1])
+            print(storage.all()[name_id])
 
     def do_EOF(self, arg):
         ''' EOF argument that exits out of the console
