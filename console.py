@@ -12,13 +12,15 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
 
+    class_list = ["BaseModel"]
+
     def do_create(self, arg):
         ''' creates a new instance of BaseModel, saves it to a JSON and prints the ID
         '''
         from models.base_model import BaseModel
         from models import storage
 
-        if len(arg) < 1:
+        if len(arg) == 0:
             print ('** class name missing **')
         else:
             try:
@@ -38,19 +40,54 @@ class HBNBCommand(cmd.Cmd):
 
         token = arg.split()
 
-        if len(arg) == 0:
+        if len(token) == 0:
             print("** class name missing **")
-        elif len(arg) == 1:
-            print("** instance id missing **")
-        elif arg[1] not in self.__class__.__name__:
+        elif token[0] not in self.class_list:
             print("** class doesn't exist **")
+        elif len(token) == 1:
+            print("** instance id missing **")
         else:
             try:
                 name_id = "{}.{}".format(token[0], token[1])
                 print(storage.all()[name_id])
             except:
                 print("** no instance found **")
-        
+
+    def do_destroy(self, arg):
+        from models import storage
+        from shlex import split
+
+        token = arg.split()
+
+        if len(token) == 0:
+            print("** class name missing **")
+        elif token[0] not in self.class_list:
+            print("** class doesn't exist **")
+        elif len(token) == 1:
+            print("** instance id missing **")
+        else:
+            try:
+                name_id = "{}.{}".format(token[0], token[1])
+                del(storage.all()[name_id])
+                storage.save()
+            except:
+                print("** no instance found **")
+
+    def do_all(self, arg):
+        from models import storage
+        from shlex import split
+
+        token = arg.split()
+
+        obj_list = []
+        if len(arg) == 0 or token[0] in self.class_list:
+            for key, val in storage.all().items():
+                if arg in key:
+                    obj_list.append(storage.all()[key].__str__())
+            print(obj_list)
+
+        else:
+            print("** class doesn't exist **")
 
     def do_EOF(self, arg):
         ''' EOF argument that exits out of the console
