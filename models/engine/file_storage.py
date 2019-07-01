@@ -31,6 +31,8 @@ class FileStorage:
         self.__objects[key] = obj
 
     def save(self):
+        '''saves the base model
+        '''
         from models.base_model import BaseModel
         dict_dict = {}
         for key, value in self.all().items():
@@ -39,6 +41,8 @@ class FileStorage:
             json.dump(dict_dict, my_file)
 
     def reload(self):
+        '''Reloads the base model
+        '''
         from models.base_model import BaseModel
         import os
         if os.path.exists(self.__file_path):
@@ -48,5 +52,6 @@ class FileStorage:
                 temp_dict = json.loads(my_file.read())
                 dict_obj = {}
                 for key, value in temp_dict.items():
+                    # use eval later instead of BaseModel
                     dict_obj[key] = BaseModel(**value)
                 self.__objects = dict_obj
