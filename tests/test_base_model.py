@@ -12,7 +12,7 @@ class Test_BaseModel(unittest.TestCase):
     def test_unique_id(self):
         ''' test 1000 instances to look for unique id's
         '''
-        for i in range(1000):
+        for _ in range(1000):
             bm0 = BaseModel()
             bm1 = BaseModel()
             self.assertNotEqual(bm0, bm1)
