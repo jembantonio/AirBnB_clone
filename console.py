@@ -20,16 +20,14 @@ class HBNBCommand(cmd.Cmd):
 
         if len(arg) < 1:
             print ('** class name missing **')
-
-        # make more better
-        elif arg != "BaseModel":
-            print ("** class doesn't exist **")
-
         else:
-            new_ins = eval("{}()".format(arg))
-            storage.new(new_ins)
-            storage.save()
-            print(new_ins.id)
+            try:
+                new_ins = eval("{}()".format(arg))
+                storage.new(new_ins)
+                storage.save()
+                print(new_ins.id)
+            except:
+                print ("** class doesn't exist **")
 
     def do_show(self, arg):
         ''' Prints the string representation of an instance based on the
@@ -41,11 +39,18 @@ class HBNBCommand(cmd.Cmd):
         token = arg.split()
 
         if len(arg) == 0:
-            print ("** class name missing **")
-
+            print("** class name missing **")
+        elif len(arg) == 1:
+            print("** instance id missing **")
+        elif arg[1] not in self.__class__.__name__:
+            print("** class doesn't exist **")
         else:
-            name_id = "{}.{}".format(token[0], token[1])
-            print(storage.all()[name_id])
+            try:
+                name_id = "{}.{}".format(token[0], token[1])
+                print(storage.all()[name_id])
+            except:
+                print("** no instance found **")
+        
 
     def do_EOF(self, arg):
         ''' EOF argument that exits out of the console
