@@ -110,20 +110,38 @@ class HBNBCommand(cmd.Cmd):
     def default(self, arg):
         match = re.search("^(\w+)\.(\w+)\((\w*)\)$", arg)
 
-        d = {"User": [self.do_all("User")
-                      if match.group(0) == "User.all()" else ""],
-             "State": [self.do_all("State")
-                       if match.group(0) == "State.all()" else ""],
-             "Review": [self.do_all("Review")
-                        if match.group(0) == "Review.all()" else ""],
-             "Place": [self.do_all("Place")
-                       if match.group(0) == "Place.all()" else ""],
-             "City": [self.do_all("City")
-                      if match.group(0) == "City.all()" else ""],
-             "Amenity": [self.do_all("Amenity")
-                         if match.group(0) == "Amenity.all()" else ""],
-             "BaseModel": [self.do_all("BaseModel")
-                           if match.group(0) == "BaseModel.all()" else ""]}
+        self.do_all("User") if match.group(0) == "User.all()" else ""
+        self.do_count("User") if match.group(0) == "User.count()" else ""
+
+        self.do_all("State") if match.group(0) == "State.all()" else ""
+        self.do_count("State") if match.group(0) == "State.count()" else ""
+
+        self.do_all("Review") if match.group(0) == "Review.all()" else ""
+        self.do_count("Review") if match.group(0) == "Review.count()" else ""
+
+        self.do_all("Place") if match.group(0) == "Place.all()" else ""
+        self.do_count("Place") if match.group(0) == "Place.count()" else ""
+
+        self.do_all("City") if match.group(0) == "City.all()" else ""
+        self.do_count("City") if match.group(0) == "City.count()" else ""
+
+        self.do_all("Amenity") if match.group(0) == "Amenity.all()" else ""
+        self.do_count("Amenity") if match.group(0) == "Amenity.count()" else ""
+
+        self.do_all("BaseModel") if match.group(0) == "BaseModel.all()" else ""
+        self.do_count("BaseModel") \
+            if match.group(0) == "BaseModel.count()" else ""
+
+    def do_count(self, arg):
+        from models import storage
+
+        if arg not in self.class_list:
+            print("** class doesn't exist **")
+        count = 0
+        for key in storage.all().keys():
+            if arg in key:
+                count += 1
+        print(count)
 
     def do_update(self, arg):
         ''' Updates an instance based on the class name and ID by adding or updating
