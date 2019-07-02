@@ -12,7 +12,7 @@ class Test_BaseModel(unittest.TestCase):
     def test_unique_id(self):
         ''' test 1000 instances to look for unique id's
         '''
-        for i in range(1000):
+        for _ in range(1000):
             bm0 = BaseModel()
             bm1 = BaseModel()
             self.assertNotEqual(bm0, bm1)
@@ -48,13 +48,16 @@ class Test_BaseModel(unittest.TestCase):
     def test_bad_kwargs_update(self):
         ''' testing bad kwargs for update_at
         '''
-        with self.assertRaises(ValueError, msg="time data '1' does not match format '%Y-%m-%dT%H:%M:%S.%f'"):
+        with self.assertRaises(ValueError,
+                               msg="time data '1' does not match format" +
+                               "%Y-%m-%dT%H:%M:%S.%f'"):
             test_kwargs = {'updated_at': '1'}
             BaseModel(**test_kwargs)
 
     def test_bad_kwargs_create(self):
         ''' testing bad kwargs for create_at
         '''
-        with self.assertRaises(ValueError, msg="time data '1' does not match format '%Y-%m-%dT%H:%M:%S.%f'"):
+        with self.assertRaises(ValueError, msg="time data '1' does not match" +
+                               "format '%Y-%m-%dT%H:%M:%S.%f'"):
             test_kwargs = {'created_at': '1'}
             BaseModel(**test_kwargs)
