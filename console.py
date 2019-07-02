@@ -13,7 +13,12 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
 
     class_list = ["BaseModel",
-                  "User"]
+                  "User",
+                  "State",
+                  "City",
+                  "Amenity",
+                  "Place",
+                  "Review"]
 
     def do_create(self, arg):
         ''' creates a new instance of BaseModel, saves it to a JSON and prints the ID
