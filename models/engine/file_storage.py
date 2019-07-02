@@ -44,6 +44,7 @@ class FileStorage:
         '''Reloads the base model
         '''
         from models.base_model import BaseModel
+        from models.user import User
         import os
         if os.path.exists(self.__file_path):
             with open(
