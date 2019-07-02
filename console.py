@@ -12,12 +12,14 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
 
-    class_list = ["BaseModel"]
+    class_list = ["BaseModel",
+                  "User"]
 
     def do_create(self, arg):
         ''' creates a new instance of BaseModel, saves it to a JSON and prints the ID
         '''
         from models.base_model import BaseModel
+        from models.user import User
         from models import storage
 
         if len(arg) == 0:
