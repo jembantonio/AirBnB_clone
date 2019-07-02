@@ -48,13 +48,16 @@ class Test_BaseModel(unittest.TestCase):
     def test_bad_kwargs_update(self):
         ''' testing bad kwargs for update_at
         '''
-        with self.assertRaises(ValueError, msg="time data '1' does not match format '%Y-%m-%dT%H:%M:%S.%f'"):
+        with self.assertRaises(ValueError,
+                               msg="time data '1' does not match format" +
+                               "%Y-%m-%dT%H:%M:%S.%f'"):
             test_kwargs = {'updated_at': '1'}
             BaseModel(**test_kwargs)
 
     def test_bad_kwargs_create(self):
         ''' testing bad kwargs for create_at
         '''
-        with self.assertRaises(ValueError, msg="time data '1' does not match format '%Y-%m-%dT%H:%M:%S.%f'"):
+        with self.assertRaises(ValueError, msg="time data '1' does not match" +
+                               "format '%Y-%m-%dT%H:%M:%S.%f'"):
             test_kwargs = {'created_at': '1'}
             BaseModel(**test_kwargs)

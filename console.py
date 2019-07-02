@@ -21,7 +21,7 @@ class HBNBCommand(cmd.Cmd):
         from models import storage
 
         if len(arg) == 0:
-            print ('** class name missing **')
+            print('** class name missing **')
         else:
             try:
                 new_ins = eval("{}()".format(arg))
@@ -29,7 +29,7 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
                 print(new_ins.id)
             except:
-                print ("** class doesn't exist **")
+                print("** class doesn't exist **")
 
     def do_show(self, arg):
         ''' Prints the string representation of an instance based on the
@@ -113,7 +113,9 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
         else:
             attr_type = type(eval(token[3]))
-            setattr(storage.all()[class_id], token[2], attr_type(token[3].strip('\'"')))
+            setattr(storage.all()[class_id],
+                    token[2],
+                    attr_type(token[3].strip('\'"')))
             storage.all()[class_id].save()
 
     def do_EOF(self, arg):
