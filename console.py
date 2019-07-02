@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import cmd
+import re
 
 
 class HBNBCommand(cmd.Cmd):
@@ -31,7 +32,7 @@ class HBNBCommand(cmd.Cmd):
         from models.place import Place
         from models.review import Review
         from models import storage
-        
+
         if len(arg) == 0:
             print('** class name missing **')
         else:
@@ -105,6 +106,24 @@ class HBNBCommand(cmd.Cmd):
 
         else:
             print("** class doesn't exist **")
+
+    def default(self, arg):
+        match = re.search("^(\w+)\.(\w+)\((\w*)\)$", arg)
+
+        d = {"User": [self.do_all("User")
+                      if match.group(0) == "User.all()" else ""],
+             "State": [self.do_all("State")
+                       if match.group(0) == "State.all()" else ""],
+             "Review": [self.do_all("Review")
+                        if match.group(0) == "Review.all()" else ""],
+             "Place": [self.do_all("Place")
+                       if match.group(0) == "Place.all()" else ""],
+             "City": [self.do_all("City")
+                      if match.group(0) == "City.all()" else ""],
+             "Amenity": [self.do_all("Amenity")
+                         if match.group(0) == "Amenity.all()" else ""],
+             "BaseModel": [self.do_all("BaseModel")
+                           if match.group(0) == "BaseModel.all()" else ""]}
 
     def do_update(self, arg):
         ''' Updates an instance based on the class name and ID by adding or updating
