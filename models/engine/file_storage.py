@@ -53,5 +53,5 @@ class FileStorage:
                 dict_obj = {}
                 for key, value in temp_dict.items():
                     # use eval later instead of BaseModel
-                    dict_obj[key] = eval(__class__)(**value)
+                    dict_obj[key] = eval(value('__class__'))(**value)
                 self.__objects = dict_obj
