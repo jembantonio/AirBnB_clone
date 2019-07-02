@@ -97,7 +97,6 @@ class HBNBCommand(cmd.Cmd):
         from models import storage
 
         token = arg.split()
-        class_id = ("{}.{}".format(token[0], token[1]))
 
         if len(token) == 0:
             print("** class name missing **")
@@ -105,18 +104,19 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(token) == 1:
             print("** instance id missing **")
-        elif class_id not in storage.all().keys():
+        elif "{}.{}".format(token[0], token[1]) not in storage.all().keys():
             print("** no instance found **")
         elif len(token) == 2:
             print("** attribute name missing **")
         elif len(token) == 3:
             print("** value missing **")
         else:
+
             attr_type = type(eval(token[3]))
-            setattr(storage.all()[class_id],
+            setattr(storage.all()["{}.{}".format(token[0], token[1])],
                     token[2],
                     attr_type(token[3].strip('\'"')))
-            storage.all()[class_id].save()
+            storage.all()["{}.{}".format(token[0], token[1])].save()
 
     def do_EOF(self, arg):
         ''' EOF argument that exits out of the console
