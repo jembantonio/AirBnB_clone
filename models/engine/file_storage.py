@@ -6,7 +6,7 @@ import json
 
 
 class FileStorage:
-    '''stores files
+    ''' FileStorage class that stores methods to JSON and loads JSON
     '''
     def __init__(self):
         '''inits the file storage attributes
