@@ -88,32 +88,33 @@ class HBNBCommand(cmd.Cmd):
 
         else:
             print("** class doesn't exist **")
-    
+
     def do_update(self, arg):
+        ''' Updates an instance based on the class name and ID by adding or updating
+            attribute
+        '''
         from shlex import split
         from models import storage
 
         token = arg.split()
+        class_id = ("{}.{}".format(token[0], token[1]))
 
-        if token[0] is None:
+        if len(token) == 0:
             print("** class name missing **")
         elif token[0] not in self.class_list:
             print("** class doesn't exist **")
-        elif token[1] is None:
+        elif len(token) == 1:
             print("** instance id missing **")
-        elif token[2] is None:
+        elif class_id not in storage.all().keys():
+            print("** no instance found **")
+        elif len(token) == 2:
             print("** attribute name missing **")
-        elif token[3] is None:
+        elif len(token) == 3:
             print("** value missing **")
-        elif token[1] and token[2] and token[3]:
-                class_id = "{}.{}".format(token[0], token[1])
-                if class_id not in storage.all().keys():
-                    print("** no instance found **")
-                else:
-                    class_type = type(eval(token[3]))
-                    #class_id.class_method = token[3]
-                    setattr(storage.all()[class_id], token[2], class_type(token[3].split('\"')))
-                    storage.save()
+        else:
+            attr_type = type(eval(token[3]))
+            setattr(storage.all()[class_id], token[2], attr_type(token[3].strip('\'"')))
+            storage.all()[class_id].save()
 
     def do_EOF(self, arg):
         ''' EOF argument that exits out of the console
