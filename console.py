@@ -54,6 +54,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_destroy(self, arg):
+        ''' Deletes an instance based on the class name and id then saves to JSON
+        '''
         from models import storage
         from shlex import split
 
@@ -74,6 +76,9 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_all(self, arg):
+        ''' Prints all string representation of all instances based or not on the
+            class name
+        '''
         from models import storage
         from shlex import split
 
@@ -111,7 +116,6 @@ class HBNBCommand(cmd.Cmd):
         elif len(token) == 3:
             print("** value missing **")
         else:
-
             attr_type = type(eval(token[3]))
             setattr(storage.all()["{}.{}".format(token[0], token[1])],
                     token[2],
