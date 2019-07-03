@@ -61,3 +61,14 @@ class Test_BaseModel(unittest.TestCase):
                                "format '%Y-%m-%dT%H:%M:%S.%f'"):
             test_kwargs = {'created_at': '1'}
             BaseModel(**test_kwargs)
+
+    def test_uuid_unique(self):
+        ''' use a set to test if each uuid is unique
+        '''
+        for _ in range(100):
+            my_list = []
+            my_set = set()
+            bm0 = BaseModel()
+            my_set.add(bm0)
+            my_list.append(bm0)
+        self.assertCountEqual(my_set, my_list)
