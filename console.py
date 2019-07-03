@@ -21,6 +21,17 @@ class HBNBCommand(cmd.Cmd):
                   "Place",
                   "Review"]
 
+    def default(self, arg):
+        ''' default interpreter when command is given as <class name>.<command>(<id>)
+        '''
+        match = re.search(r"^(\w+)\.(\w+)\((\d*)\)$", arg)
+
+        if match is not None:
+            cmd = match.group(2) + " " + match.group(1) + " " + match.group(3)
+            if match is not None:
+                self.onecmd(cmd)
+        return ""
+
     def do_create(self, arg):
         ''' creates a new instance of BaseModel, saves it to a JSON and prints the ID
         '''
@@ -106,31 +117,6 @@ class HBNBCommand(cmd.Cmd):
 
         else:
             print("** class doesn't exist **")
-
-    def default(self, arg):
-        match = re.search("^(\w+)\.(\w+)\((\w*)\)$", arg)
-
-        self.do_all("User") if match.group(0) == "User.all()" else ""
-        self.do_count("User") if match.group(0) == "User.count()" else ""
-
-        self.do_all("State") if match.group(0) == "State.all()" else ""
-        self.do_count("State") if match.group(0) == "State.count()" else ""
-
-        self.do_all("Review") if match.group(0) == "Review.all()" else ""
-        self.do_count("Review") if match.group(0) == "Review.count()" else ""
-
-        self.do_all("Place") if match.group(0) == "Place.all()" else ""
-        self.do_count("Place") if match.group(0) == "Place.count()" else ""
-
-        self.do_all("City") if match.group(0) == "City.all()" else ""
-        self.do_count("City") if match.group(0) == "City.count()" else ""
-
-        self.do_all("Amenity") if match.group(0) == "Amenity.all()" else ""
-        self.do_count("Amenity") if match.group(0) == "Amenity.count()" else ""
-
-        self.do_all("BaseModel") if match.group(0) == "BaseModel.all()" else ""
-        self.do_count("BaseModel") \
-            if match.group(0) == "BaseModel.count()" else ""
 
     def do_count(self, arg):
         from models import storage
