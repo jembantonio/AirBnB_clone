@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import cmd
-import re
 
 
 class HBNBCommand(cmd.Cmd):
@@ -22,14 +21,15 @@ class HBNBCommand(cmd.Cmd):
                   "Review"]
 
     def default(self, arg):
+        import re
         ''' default interpreter when command is given as <class name>.<command>(<id>)
         '''
-        match = re.search(r"^(\w+)\.(\w+)\((\d*)\)$", arg)
+        match = re.search(r"^(\w+)\.(\w+)(?:\(([^)]*)\))$", arg)
 
         if match is not None:
-            cmd = match.group(2) + " " + match.group(1) + " " + match.group(3)
-            if match is not None:
-                self.onecmd(cmd)
+            id = match.group(3).strip('"')
+            cmd = match.group(2) + " " + match.group(1) + " " + id
+            self.onecmd(cmd)
         return ""
 
     def do_create(self, arg):
