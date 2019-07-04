@@ -19,4 +19,3 @@ class Test_Filestorage(unittest.TestCase):
     def test_all(self):
         fs = FileStorage()
         self.assertEqual(fs.all(), fs._FileStorage__objects)
-
