@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  padding: 0;
+  color: #484848;
+  font-size: 14px;
+  font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+p {
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+}
+
+div {
+  text-align: center;
+  vertical-align: middle;
+  line-height: 60px;
+}
